@@ -13,12 +13,19 @@ function CarShow() {
       <OrbitControls
         target={[0, 0.35, 0]}
         maxPolarAngle={1.45}
-        minPolarAngle={0.1} // set the minimum polar angle to 0.1 radians
+        minPolarAngle={0.1}
+        minDistance={2}
+        maxDistance={20}
       />
 
       <PerspectiveCamera makeDefault fov={50} position={[3, 2, 5]} />
 
       <color args={[0, 0, 0]} attach="background" />
+
+      <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeBufferGeometry args={[10, 10]} />
+        <meshStandardMaterial color="gray" />
+      </mesh>
 
       <CubeCamera resolution={256} frames={Infinity}>
         {(texture) => (
@@ -51,24 +58,24 @@ function CarShow() {
       <Rings />
 
       <EffectComposer>
-        {/* <DepthOfField focusDistance={0.0035} focalLength={0.01} bokehScale={3} height={480} /> */}
         <Bloom
           blendFunction={BlendFunction.ADD}
-          intensity={1.3} // The bloom intensity.
-          width={300} // render width
-          height={300} // render height
-          kernelSize={5} // blur kernel size
-          luminanceThreshold={0.15} // luminance threshold. Raise this value to mask out darker elements in the scene.
-          luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
+          intensity={1.3}
+          width={300}
+          height={300}
+          kernelSize={5}
+          luminanceThreshold={0.15}
+          luminanceSmoothing={0.025}
         />
         <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL} // blend mode
-          offset={[0.0005, 0.0012]} // color offset
+          blendFunction={BlendFunction.NORMAL}
+          offset={[0.0005, 0.0012]}
         />
       </EffectComposer>
     </>
   );
 }
+
 
 function App() {
   return (
